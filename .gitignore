@@ -1,0 +1,10 @@
+# Dependency directories
+node_modules/
+
+# Built Go Binaries
+platform-linux
+platform.exe
+platform-macos
+
+# Custom Packages
+tempCustomPackagesFolder/

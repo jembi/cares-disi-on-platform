@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "bdavs.expect",
+        "ms-azuretools.vscode-docker",
+        "ms-vsliveshare.vsliveshare",
+        "esbenp.prettier-vscode",
+        "pinage404.bash-extension-pack"
+    ]
+}
