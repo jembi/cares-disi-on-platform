@@ -1,2 +1,2 @@
 # cares-disi
-The combined repository to launch the cares covid custom packages and disi hiv custom package to the same environment.
+The combined repository to launch the CARES COVID custom package and DISI HIV custom package to the same environment.
