@@ -23,3 +23,15 @@ packages:
     name: Analytics Datastore Clickhouse
   - id: dashboard-visualiser-superset
     name: Dashboard Visualiser Superset
+  - id: analytics-datastore-elastic-search
+    name: Analytics Datastore - ElasticSearch
+  - id: dashboard-visualiser-kibana
+    name: Dashboard Visualiser - Kibana
+  - id: elastic-monitoring-metricbeats-filebeats
+    name: Elastic Monitoring - MetricBeats and FileBeats
+  - id: system-monitoring-prometheus-grafana
+    name: System Monitoring - Prometheus and Grafana
+  - id: dashboard-visualiser-jsreport
+    name: Dashboard Visualiser - JS Reports
+  - id: client-registry-santempi
+    name: Client Registry Package - SanteMPI
