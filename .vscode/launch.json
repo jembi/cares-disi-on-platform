@@ -1,0 +1,60 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "command": "./build-image.sh && ./platform-linux",
+            "name": "Build and Run",
+            "request": "launch",
+            "type": "node-terminal",
+        },
+        {
+            "command": "./build-image.sh",
+            "name": "Build",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "command": "./platform-linux",
+            "name": "Run",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "command": "./platform-linux ${input:action} ${input:packages} ${input:devMode} --env-file=\"${input:envFile}\"",
+            "name": "Run (with options)",
+            "request": "launch",
+            "type": "node-terminal",
+        },
+    ],
+    "inputs": [
+        {
+            "id": "action",
+            "description": "What action would you like to perform",
+            "type": "pickString",
+            "options": ["init", "up", "down", "destroy"],
+            "default": "init"
+        },
+        {
+            "id": "packages",
+            "description": "Which packages would you like to start (leave empty for all)",
+            "type": "promptString",
+            "default": ""
+        },
+        {
+            "id": "devMode",
+            "description": "Should platform run in dev mode",
+            "type": "pickString",
+            "options": ["--dev", ""],
+            "default": "--dev"
+        },
+        {
+            "id": "envFile",
+            "description": "What is the path to your env file",
+            "type": "promptString",
+            "default": ".env.dev"
+        },
+      ]
+}
