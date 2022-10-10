@@ -5,12 +5,10 @@ const getReport = async (params, isForKibanaDashboard, chartName = null) => {
 
   var template = null;
 
-  if (!isForKibanaDashboard)
-  {
+  if (!isForKibanaDashboard) {
     template = `report-${params.report}-test`;
   }
-  else
-  {
+  else {
     template = `${params.report}-${chartName}-test`;
   }
 
@@ -47,7 +45,7 @@ const getReport = async (params, isForKibanaDashboard, chartName = null) => {
 
 const esPost = async (query, esRequest) => {
   const { ELASTIC_SERVER, ES_INDEX } = process.env
-  
+
   const config = {
     method: 'POST',
     url: `${ELASTIC_SERVER}/${ES_INDEX}/` + esRequest,
@@ -89,4 +87,34 @@ const queryES = async (config) => {
   }
 }
 
-module.exports = { getReport, esPost }
+
+
+
+
+const getSupsersetChart = async (params) => {
+  const { SUPERSET_SERVER, SUPERSET_USERNAME, SUPERSET_PASSWORD } = process.env
+
+
+
+  const config = {
+    method: "GET",
+    url: `${SUPERSET_SERVER}/api/v1/chart/` + params.ID + `/data/`,
+    data: null,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Basic ${new Buffer.from(
+        `${SUPERSET_USERNAME}:${SUPERSET_PASSWORD}`
+      ).toString("base64")}`,
+    },
+  };
+
+  try {
+    const res = await axios(config);
+    return res
+  } catch (err) {
+    console.error(err)
+    throw new Error(err)
+  }
+};
+
+module.exports = { getReport, esPost, getSupsersetChart }
