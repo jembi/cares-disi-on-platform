@@ -87,29 +87,40 @@ const queryES = async (config) => {
   }
 }
 
-
-
-
-
 const getSupsersetChart = async (params) => {
   const { SUPERSET_SERVER, SUPERSET_USERNAME, SUPERSET_PASSWORD } = process.env
 
+  let jwt_token = await axios.post(`${SUPERSET_SERVER}/api/v1/security/login`,
+    {
+      "username": `${SUPERSET_USERNAME}`,
+      "password": `${SUPERSET_PASSWORD}`,
+      "refresh": true,
+      "provider": "db"
+    });
 
+  let access_token = jwt_token.data.access_token;
 
-  const config = {
-    method: "GET",
-    url: `${SUPERSET_SERVER}/api/v1/chart/` + params.ID + `/data/`,
-    data: null,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Basic ${new Buffer.from(
-        `${SUPERSET_USERNAME}:${SUPERSET_PASSWORD}`
-      ).toString("base64")}`,
-    },
-  };
+  let csrf_token = await axios.get(
+    `${SUPERSET_SERVER}/api/v1/security/csrf_token/`,
+    {
+      headers: { 'Authorization': `Bearer ${access_token}` }
+    }
+  )
+
+  let headers = {
+    'accept': 'application/json',
+    'Authorization': `Bearer ${access_token}`,
+    'X-CSRFToken': csrf_token.data.result,
+  }
 
   try {
-    const res = await axios(config);
+    const res = await axios.get(
+      `${SUPERSET_SERVER}/api/v1/chart/${params.ID}/data/`,
+      {
+        headers: headers
+      }
+    )
+
     return res
   } catch (err) {
     console.error(err)

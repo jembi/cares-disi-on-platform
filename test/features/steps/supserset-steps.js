@@ -13,6 +13,14 @@ When('I check Superset for chart data using the following', { timeout: 10 * 1000
     const { data } = await getSupsersetChart(params)
     this.output = data
 
-    console.log(this.output)
+    var result = null;
 
+    if (Array.isArray(this.output.result)) {
+        result = JSON.stringify(this.output['result'][0].data); //There is always only one result object with one data element
+    }
+    else {
+        result = this.output;
+    }
+
+    console.log(result)
 })
