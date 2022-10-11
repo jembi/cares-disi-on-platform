@@ -16,11 +16,18 @@ When('I check Superset for chart data using the following', { timeout: 10 * 1000
     var result = null;
 
     if (Array.isArray(this.output.result)) {
-        result = JSON.stringify(this.output['result'][0].data); //There is always only one result object with one data element
+        result = this.output['result'][0].data; //There is always only one result object with one data element
     }
     else {
         result = this.output;
     }
 
-    console.log(result)
+    for (var j = 0; j < result.length; j++) {
+        for (key in result[j]) {
+            const chartKey = key;
+            const chartValue = result[j][key];
+
+            console.log(chartKey + ": " + chartValue);
+        }
+    }
 })
