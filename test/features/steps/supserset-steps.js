@@ -16,18 +16,33 @@ When('I check Superset for chart data using the following', { timeout: 10 * 1000
     var result = null;
 
     if (Array.isArray(this.output.result)) {
-        result = this.output['result'][0].data; //There is always only one result object with one data element
+        result = this.output; //There is always only one result object with one data element
     }
     else {
         result = this.output;
     }
 
-    for (var j = 0; j < result.length; j++) {
-        for (key in result[j]) {
-            const chartKey = key;
-            const chartValue = result[j][key];
+    console.log(result)
 
-            console.log(chartKey + ": " + chartValue);
-        }
-    }
+    /* for (var j = 0; j < result.length; j++) {
+         for (key in result[j]) {
+             const chartKey = key;
+             const chartValue = result[j][key];
+ 
+             console.log(chartKey + ": " + chartValue);
+         }
+ 
+         console.log(result[j]);
+     }*/
+})
+
+Then('there should be a result identified by {string} of {string} with the following fields and values', function (field, value, table) {
+    const row = this.output.rows.find(r => r[field] === value)
+    expect(row, 'Could not find row').to.not.be.undefined
+
+    table.hashes().forEach(hash => {
+        var result = String(row[hash.field]).replace(/\bb\*(.*?)\*/g, "'");
+
+        expect(Math.round(result), hash.field).to.equal(Math.round(hash.value))
+    })
 })
