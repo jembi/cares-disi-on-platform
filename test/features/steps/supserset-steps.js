@@ -23,7 +23,7 @@ Then('there should be a result identified by {string} of {string}', function (fi
             return field == chartElementKeyCleaned && r[key] == value
         }
     });
-    expect(res, 'Could not find chart element in chart data').to.not.be.undefined
+    expect(res, 'The expected result does not match the actual result').to.not.be.undefined
 })
 
 Then('there should be a result identified by {string} of {string} with the following fields and values', function (field, value, table) {
@@ -37,13 +37,13 @@ Then('there should be a result identified by {string} of {string} with the follo
             return field == chartElementKeyCleaned && r[key] == value
         }
     });
-    expect(res, 'Could not find chart element in chart data').to.not.be.undefined
+    expect(res, 'The expected result does not match the actual result').to.not.be.undefined
 
     this.output.result.find((r) => {
         table.hashes().forEach(hash => {
-            const row = r.data.find(r => r[hash.field] === value)
+            const row = r.data.find(r => r[field] === value)
 
-            console.log(row)
+            expect(Math.round(row[hash.field]), hash.field).to.equal(Math.round(hash.value))
         })
     });
 })
