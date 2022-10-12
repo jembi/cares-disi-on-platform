@@ -40,8 +40,10 @@ Then('there should be a result identified by {string} of {string} with the follo
     expect(res, 'Could not find chart element in chart data').to.not.be.undefined
 
     this.output.result.find((r) => {
-        const row = r.data.find(r => r[field] === value)
+        table.hashes().forEach(hash => {
+            const row = r.data.find(r => r[hash.field] === value)
 
-        console.log(row)
+            console.log(row)
+        })
     });
 })
