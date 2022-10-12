@@ -10,37 +10,38 @@ When('I check Superset for chart data using the following', async function (tabl
 
     const { data } = await getSupsersetChart(params)
     this.output = data
+})
 
-    var result = null;
+Then('there should be a result identified by {string} of {string}', function (field, value) {
+    const chartData = this.output.result.find(r => r['data'] != [])
+    expect(chartData, 'Could not find chart data').to.not.be.undefined
 
-    if (Array.isArray(this.output.result)) {
-        result = this.output; //There is always only one result object with one data element
-    }
-    else {
-        result = this.output;
-    }
+    const res = this.output.result[0].data.find((r) => {
+        for (key in r) {
+            const chartElementKeyCleaned = String(key).replace("COUNT(", "").replace(")", "")
 
-    console.log(result)
-
-    /* for (var j = 0; j < result.length; j++) {
-         for (key in result[j]) {
-             const chartKey = key;
-             const chartValue = result[j][key];
- 
-             console.log(chartKey + ": " + chartValue);
-         }
- 
-         console.log(result[j]);
-     }*/
+            return field == chartElementKeyCleaned && r[key] == value
+        }
+    });
+    expect(res, 'Could not find chart element in chart data').to.not.be.undefined
 })
 
 Then('there should be a result identified by {string} of {string} with the following fields and values', function (field, value, table) {
-    const row = this.output.rows.find(r => r[field] === value)
-    expect(row, 'Could not find row').to.not.be.undefined
+    const chartData = this.output.result.find(r => r['data'] != [])
+    expect(chartData, 'Could not find chart data').to.not.be.undefined
 
-    table.hashes().forEach(hash => {
-        var result = String(row[hash.field]).replace(/\bb\*(.*?)\*/g, "'");
+    const res = this.output.result[0].data.find((r) => {
+        for (key in r) {
+            const chartElementKeyCleaned = String(key).replace("COUNT(", "").replace(")", "")
 
-        expect(Math.round(result), hash.field).to.equal(Math.round(hash.value))
-    })
+            return field == chartElementKeyCleaned && r[key] == value
+        }
+    });
+    expect(res, 'Could not find chart element in chart data').to.not.be.undefined
+
+    this.output.result.find((r) => {
+        const row = r.data.find(r => r[field] === value)
+
+        console.log(row)
+    });
 })
