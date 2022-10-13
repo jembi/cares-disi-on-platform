@@ -23,14 +23,14 @@ When('I check Superset for chart data using the following', async function (tabl
 })
 
 Then('there should be a result identified by {string} of {string}', function (field, value) {
-    const chartData = outputData.result.find(r => r['data'] != [])
+    const chartData = this.output.result.find(r => r['data'] != [])
     expect(chartData, 'Could not find chart data').to.not.be.undefined
 
     expect(verifyResultRowExistsWithCorrectResultValue(field, value, this.output), 'The expected result does not match the actual result').to.not.be.undefined
 })
 
 Then('there should be a result identified by {string} of {string} with the following fields and values', function (field, value, table) {
-    const chartData = outputData.result.find(r => r['data'] != [])
+    const chartData = this.output.result.find(r => r['data'] != [])
     expect(chartData, 'Could not find chart data').to.not.be.undefined
 
     expect(verifyResultRowExistsWithCorrectResultValue(field, value, this.output), 'The expected result does not match the actual result').to.not.be.undefined
