@@ -10,6 +10,7 @@
     "@types/google-apps-script": "^1.0.45",
     "axios": "^0.24.0",
     "body-parser": "^1.20.0",
+    "browserless": "^9.6.12",
     "concurrently": "^6.0.2",
     "config": "^3.3.7",
     "cucumber": "^6.0.7",
@@ -25,8 +26,11 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "newman": "^5.2.2",
-    "node-fetch": "^2.6.1",
-    "request": "^2.88.2"
+    "node-fetch": "^2.6.7",
+    "puppeteer": "^19.1.1",
+    "request": "^2.88.2",
+    "superset": "^2.0.1",
+    "xhr2": "^0.2.1"
   },
   "scripts": {
     "bootstrap": "yarn newman run 'CDR.postman_collection.json' --folder 'Bootstrap'",

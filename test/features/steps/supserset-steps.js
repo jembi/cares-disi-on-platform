@@ -12,14 +12,36 @@ function verifyResultRowExistsWithCorrectResultValue(resultField, resultValue, o
     });
 }
 
-When('I check Superset for chart data using the following', async function (table) {
+When('I check Superset for chart data using the following', { timeout: 20 * 1000 }, async function (table) {
     const params = {}
     table.hashes().forEach(hash => {
         params[hash.field] = hash.value
     })
 
-    const { data } = await getSupsersetChart(params)
-    this.output = data
+    var chartDataReceived = false;
+
+    var data = await new Promise((resolve) => {
+        getSupsersetChart(params, function (initialiseClientCallback) {
+            //const { data } = await getSupsersetChart(params)
+            if (initialiseClientCallback != null) {
+                chartDataReceived = true;
+                resolve(initialiseClientCallback);
+            }
+        })
+
+        new Promise(r => setTimeout(r, 10000));
+    })
+
+    if (chartDataReceived) {
+        this.output = data;
+        //console.log(this.output['result'][0].data)
+        //console.log(this.output['result'][0].charts)
+
+        //console.log(this.output['result'][1].form_data)
+        console.log(this.output)
+
+        //console.log(this.output.result[3].id)
+    }
 })
 
 Then('there should be a result identified by {string} of {string}', function (field, value) {
