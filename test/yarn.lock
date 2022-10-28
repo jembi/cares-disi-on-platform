@@ -2315,7 +2315,7 @@
     "domhandler" "^5.0.3"
     "domutils" "^3.0.1"
 
-"cheerio@~1.0.0-rc.12":
+"cheerio@^1.0.0-rc.10":
   "integrity" "sha512-VqR8m68vM46BNnuZ5NtnGBKIE/DfN0cRIzg9n40EIq9NOv90ayxLBXA8fXC5gquFRGJSTRqBq25Jt2ECLR431Q=="
   "resolved" "https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.12.tgz"
   "version" "1.0.0-rc.12"
@@ -2328,7 +2328,7 @@
     "parse5" "^7.0.0"
     "parse5-htmlparser2-tree-adapter" "^7.0.0"
 
-"cheerio@1.0.0-rc.6":
+"cheerio@^1.0.0-rc.3", "cheerio@1.0.0-rc.6":
   "integrity" "sha512-hjx1XE1M/D5pAtMgvWwE21QClmAEeGHOIDfycgmndisdNgI6PE1cGRQkMGBcsbUbmEQyWu5PJLUcAOjtQS8DWw=="
   "resolved" "https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.6.tgz"
   "version" "1.0.0-rc.6"
@@ -2339,6 +2339,19 @@
     "htmlparser2" "^6.1.0"
     "parse5" "^6.0.1"
     "parse5-htmlparser2-tree-adapter" "^6.0.1"
+
+"cheerio@~1.0.0-rc.12":
+  "integrity" "sha512-VqR8m68vM46BNnuZ5NtnGBKIE/DfN0cRIzg9n40EIq9NOv90ayxLBXA8fXC5gquFRGJSTRqBq25Jt2ECLR431Q=="
+  "resolved" "https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.12.tgz"
+  "version" "1.0.0-rc.12"
+  dependencies:
+    "cheerio-select" "^2.1.0"
+    "dom-serializer" "^2.0.0"
+    "domhandler" "^5.0.3"
+    "domutils" "^3.0.1"
+    "htmlparser2" "^8.0.1"
+    "parse5" "^7.0.0"
+    "parse5-htmlparser2-tree-adapter" "^7.0.0"
 
 "chownr@^1.1.1":
   "integrity" "sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg=="
@@ -4093,7 +4106,7 @@
     "google-auth-library" "^7.0.2"
     "googleapis-common" "^5.0.2"
 
-"got@~11.8.5":
+"got@^11.8.2", "got@~11.8.5":
   "integrity" "sha512-o0Je4NvQObAuZPHLFoRSkdG2lTgtcynqymzg2Vupdx6PorhaT5MCbIyXG6d4D94kk8ZG57QeosgdiqfJWhEhlQ=="
   "resolved" "https://registry.npmjs.org/got/-/got-11.8.5.tgz"
   "version" "11.8.5"
@@ -4242,6 +4255,13 @@
   "integrity" "sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg=="
   "resolved" "https://registry.npmjs.org/html-escaper/-/html-escaper-2.0.2.tgz"
   "version" "2.0.2"
+
+"html-table-to-json@^1.0.0":
+  "integrity" "sha512-GvfmFS86zDdbLn4lf7DrCpDQox8LloDLL74K+5tE9evdjnAMylBk/bpKK7VIfROnqSqgIKkBzlVt7AFXF9GNYg=="
+  "resolved" "https://registry.npmjs.org/html-table-to-json/-/html-table-to-json-1.0.0.tgz"
+  "version" "1.0.0"
+  dependencies:
+    "cheerio" "^1.0.0-rc.3"
 
 "htmlescape@^1.1.0":
   "integrity" "sha1-OgPtwiFLyjtmQko+eVk0lQnLA1E= sha512-eVcrzgbR4tim7c7soKQKtxa/kQM4TzjnlU83rcZ9bHU6t31ehfV7SktN6McWgwPWg+JYMA/O3qpGxBvFq1z2Jg=="
@@ -7694,6 +7714,14 @@
     "slice-ansi" "^4.0.0"
     "string-width" "^4.2.0"
     "strip-ansi" "^6.0.0"
+
+"tabletojson@^2.0.7":
+  "integrity" "sha512-rnt4Wz5IdnjzIUk4WIeFGdH3G3zRUlhQ9rc+d7e+iGbcVeJeay+8mRScazptoZG+ls1bX82kSuns9yVsMx5DGg=="
+  "resolved" "https://registry.npmjs.org/tabletojson/-/tabletojson-2.0.7.tgz"
+  "version" "2.0.7"
+  dependencies:
+    "cheerio" "^1.0.0-rc.10"
+    "got" "^11.8.2"
 
 "tar-fs@^2.0.0", "tar-fs@^2.1.1", "tar-fs@2.1.1":
   "integrity" "sha512-V0r2Y9scmbDRLCNex/+hYzvp/zyYjvFbHPNgVTKfQvVrb6guiE/fxP+XblDNR011utopbkex2nM4dHNV6GDsng=="
