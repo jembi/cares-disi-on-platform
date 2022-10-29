@@ -1,6 +1,5 @@
 const axios = require('axios')
 const puppeteer = require('puppeteer');
-
 const HtmlTableToJson = require('html-table-to-json');
 
 const getReport = async (params, isForKibanaDashboard, chartName = null) => {
@@ -92,7 +91,7 @@ const queryES = async (config) => {
 
 var filteredDashboardData = null;
 
-var fetchFilteredDashboardData = async function (ssUsername, ssPassword, testParams, callback) {
+var getFilteredSupersetDashboardData = async function (ssUsername, ssPassword, testParams, callback) {
 
   run(`${ssUsername}`, `${ssPassword}`, testParams)
     .then(function (resp) {
@@ -112,7 +111,7 @@ var fetchFilteredDashboardData = async function (ssUsername, ssPassword, testPar
 const getSupsersetChart = async (params, callback) => {
   const { SUPERSET_USERNAME, SUPERSET_PASSWORD } = process.env
   const DATA_IS_FILTERED = await new Promise((resolve) => {
-    fetchFilteredDashboardData(SUPERSET_USERNAME, SUPERSET_PASSWORD, params, function (initialiseClientCallback) {
+    getFilteredSupersetDashboardData(SUPERSET_USERNAME, SUPERSET_PASSWORD, params, function (initialiseClientCallback) {
       if (initialiseClientCallback) {
         resolve(true);
       }
@@ -124,7 +123,7 @@ const getSupsersetChart = async (params, callback) => {
   }
 }
 
-//Only used if using Suoerset API calls
+//Only used if using Superset API calls
 const generateSuperSetToken = async (params) => {
   const { SUPERSET_SERVER, SUPERSET_USERNAME, SUPERSET_PASSWORD } = process.env
   var jwt_token = null;
@@ -184,25 +183,30 @@ function run(ssUser, ssPass, params) {
 
         const page = await browser.newPage();
 
-        await page.goto("https://superset.qa.cares-disi.gicsandbox.org/superset/dashboard/1/?native_filters=(NATIVE_FILTER-vQUYoGoee:(__cache:(label:'20 Dec 2020',validateStatus:!f,value:!('20 Dec 2020')),extraFormData:(filters:!((col:pepfar_quarter,op:IN,val:!('20 Dec 2020')))),filterState:(label:'20 Dec 2020',validateStatus:!f,value:!('20 Dec 2020')),id:NATIVE_FILTER-vQUYoGoee,ownState:()))");
+        await page.goto(`https://superset.qa.cares-disi.gicsandbox.org/superset/dashboard/${params.DashboardID}/?native_filters=(NATIVE_FILTER-vQUYoGoee:(__cache:(label:'20 Dec 2020',validateStatus:!f,value:!('20 Dec 2020')),extraFormData:(filters:!((col:pepfar_quarter,op:IN,val:!('20 Dec 2020')))),filterState:(label:'20 Dec 2020',validateStatus:!f,value:!('20 Dec 2020')),id:NATIVE_FILTER-vQUYoGoee,ownState:()))`);
+
         await page.type('input[name=username]', creds.username);
         await page.type('input[name=password]', creds.password)
+
         await Promise.all([
           page.click('input[type=submit]'),
           page.waitForNavigation({ waitUntil: 'networkidle0' }),
         ]);
 
-        if (params.ID == 1) {
+        if (params.ChartID == 1) {
           await page.goto("https://superset.qa.cares-disi.gicsandbox.org/explore/?form_data_key=Px6o5Wvt8dH8hft2cSO0YltuhVUi4TpDZLMx-9PQfkVO7J804lj-QhbUX8ynMjNM&slice_id=1&native_filters_key=7nKyn4UrzAquJ8h_rEWjxXGsc48V2cmzmysr72lp9zR9TV4PYWfo_ofrcERBYIfB");
         }
-        else if (params.ID == 2) {
+        else if (params.ChartID == 2) {
           await page.goto("https://superset.qa.cares-disi.gicsandbox.org/explore/?form_data_key=31ed5rVGLFPNRq7dTBTAA_jbw1Dy6NJ8GBQy3Euyx8XgJ_pFYj4C7XJhuv_dwgCd&slice_id=2");
         }
-        else if (params.ID == 6) {
+        else if (params.ChartID == 6) {
           await page.goto("https://superset.qa.cares-disi.gicsandbox.org/explore/?form_data_key=5kaPoFQH1nxUgCcEYpC3Dq7ET5NUgFQwnXIeN9Fydo-gFJFD-uk6jGEjc4Rg3XCY&slice_id=6");
         }
-        else if (params.ID == 7) {
+        else if (params.ChartID == 7) {
           await page.goto("https://superset.qa.cares-disi.gicsandbox.org/explore/?form_data_key=tN6pZaBv-RR28KVfBI3q0ImFlN75nTfG1vfxnPn9wvZi_34nm4sEpFm1sSzU21MA&slice_id=7")
+        }
+        else if (params.ChartID == 8) {
+          await page.goto("https://superset.qa.cares-disi.gicsandbox.org/explore/?form_data_key=Uas5lOUakFgpSPQEnANmMbQgzvVD8pg_4E3nrO1DqokH6_bRt8BmpNvuZIKUjtKT&slice_id=8")
         }
         else {
 
@@ -221,7 +225,7 @@ function run(ssUser, ssPass, params) {
           //Wait for the page to load afetr clickin on the Results tab in Superset
           await new Promise(resolve => setTimeout(resolve, 3000));
 
-          let items = document.querySelector("#rc-tabs-0-panel-results > div.table-condensed.css-1jemrau").innerHTML //document.querySelector("body").innerText;
+          let items = document.querySelector("#rc-tabs-0-panel-results > div.table-condensed.css-1jemrau").innerHTML;
           return items;
         })
 
