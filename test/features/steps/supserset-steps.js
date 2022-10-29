@@ -70,3 +70,19 @@ Then('there should be a result identified by {string} with the following fields 
         }
     });
 })
+
+Then('there should be a result identified by {string} of {string} with the following fields and values', function (field, value, table) {
+    expect(this.output != [], 'Could not find chart data').to.not.be.undefined
+
+    this.output.find((r) => {
+        for (key in Array(r)) {
+            table.hashes().forEach(hash => {
+                if (r[0] === field) {
+                    if (r[1] === value) {
+                        expect(Math.round(r[2]), r[0]).to.equal(Math.round(hash.value))
+                    }
+                }
+            })
+        }
+    });
+})

@@ -198,6 +198,12 @@ function run(ssUser, ssPass, params) {
         else if (params.ID == 2) {
           await page.goto("https://superset.qa.cares-disi.gicsandbox.org/explore/?form_data_key=31ed5rVGLFPNRq7dTBTAA_jbw1Dy6NJ8GBQy3Euyx8XgJ_pFYj4C7XJhuv_dwgCd&slice_id=2");
         }
+        else if (params.ID == 6) {
+          await page.goto("https://superset.qa.cares-disi.gicsandbox.org/explore/?form_data_key=5kaPoFQH1nxUgCcEYpC3Dq7ET5NUgFQwnXIeN9Fydo-gFJFD-uk6jGEjc4Rg3XCY&slice_id=6");
+        }
+        else if (params.ID == 7) {
+          await page.goto("https://superset.qa.cares-disi.gicsandbox.org/explore/?form_data_key=tN6pZaBv-RR28KVfBI3q0ImFlN75nTfG1vfxnPn9wvZi_34nm4sEpFm1sSzU21MA&slice_id=7")
+        }
         else {
 
         }
