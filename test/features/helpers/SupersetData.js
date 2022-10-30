@@ -68,7 +68,7 @@ class SupersetData {
                             args: [
                                 '--disable-web-security',
                             ],
-                            headless: false
+                            headless: true
                         });
 
                         SupersetDataHelper.PUPPETEER_PAGE_OBJECT = await SupersetDataHelper.PUPPETEER_BROWSER_OBJECT.newPage();
