@@ -55,6 +55,8 @@ Feature: CHART TEST
             | field | value |
             | count | 5     |
 
+        Then notify browser resources must be terminated after the following test
+
         And I check Superset for chart data using the following
             | field       | value |
             | DashboardID | 1     |

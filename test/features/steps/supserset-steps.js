@@ -1,6 +1,8 @@
 const { Then, When } = require('@cucumber/cucumber')
 const { expect } = require('chai')
 const { getSupsersetChart } = require('../helpers/api-helpers')
+const SupersetData = require("../helpers/SupersetData");
+const SupersetDataHelper = require("../helpers/SupersetDataHelper");
 
 When('I check Superset for chart data using the following', { timeout: 60 * 1000 }, async function (table) {
     const params = {}
@@ -69,4 +71,8 @@ Then('there should be a superset row identified by {string} of {string} with the
             })
         }
     });
+})
+
+Then('notify browser resources must be terminated after the following test', function () {
+    SupersetDataHelper.TERMINATE_PUPPETEER_BROWSER_SESSION = true;
 })
