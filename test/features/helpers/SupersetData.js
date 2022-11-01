@@ -1,27 +1,28 @@
 const puppeteer = require('puppeteer');
-const SupersetDataHelper = require('../helpers/SupersetDataHelper');
+const SupersetHelper = require('../helpers/SupersetHelper');
 
 class SupersetData {
-    constructor(visualisationParams, supersetCredentials) {
+    constructor(visualisationParams, supersetCredentials, supersetServerURL) {
         this.visualisationParams = visualisationParams;
         this.supersetCredentials = supersetCredentials;
+        this.supersetServerURL = supersetServerURL;
     }
 
     async #getFilteredChartData(webPage) {
         if (this.visualisationParams.ChartID == 1) {
-            await webPage.goto("https://superset.qa.cares-disi.gicsandbox.org/explore/?form_data_key=Px6o5Wvt8dH8hft2cSO0YltuhVUi4TpDZLMx-9PQfkVO7J804lj-QhbUX8ynMjNM&slice_id=1&native_filters_key=7nKyn4UrzAquJ8h_rEWjxXGsc48V2cmzmysr72lp9zR9TV4PYWfo_ofrcERBYIfB");
+            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=Px6o5Wvt8dH8hft2cSO0YltuhVUi4TpDZLMx-9PQfkVO7J804lj-QhbUX8ynMjNM&slice_id=1&native_filters_key=7nKyn4UrzAquJ8h_rEWjxXGsc48V2cmzmysr72lp9zR9TV4PYWfo_ofrcERBYIfB`);
         }
         else if (this.visualisationParams.ChartID == 2) {
-            await webPage.goto("https://superset.qa.cares-disi.gicsandbox.org/explore/?form_data_key=31ed5rVGLFPNRq7dTBTAA_jbw1Dy6NJ8GBQy3Euyx8XgJ_pFYj4C7XJhuv_dwgCd&slice_id=2");
+            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=31ed5rVGLFPNRq7dTBTAA_jbw1Dy6NJ8GBQy3Euyx8XgJ_pFYj4C7XJhuv_dwgCd&slice_id=2`);
         }
         else if (this.visualisationParams.ChartID == 6) {
-            await webPage.goto("https://superset.qa.cares-disi.gicsandbox.org/explore/?form_data_key=5kaPoFQH1nxUgCcEYpC3Dq7ET5NUgFQwnXIeN9Fydo-gFJFD-uk6jGEjc4Rg3XCY&slice_id=6");
+            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=5kaPoFQH1nxUgCcEYpC3Dq7ET5NUgFQwnXIeN9Fydo-gFJFD-uk6jGEjc4Rg3XCY&slice_id=6`);
         }
         else if (this.visualisationParams.ChartID == 7) {
-            await webPage.goto("https://superset.qa.cares-disi.gicsandbox.org/explore/?form_data_key=tN6pZaBv-RR28KVfBI3q0ImFlN75nTfG1vfxnPn9wvZi_34nm4sEpFm1sSzU21MA&slice_id=7")
+            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=tN6pZaBv-RR28KVfBI3q0ImFlN75nTfG1vfxnPn9wvZi_34nm4sEpFm1sSzU21MA&slice_id=7`)
         }
         else if (this.visualisationParams.ChartID == 8) {
-            await webPage.goto("https://superset.qa.cares-disi.gicsandbox.org/explore/?form_data_key=Uas5lOUakFgpSPQEnANmMbQgzvVD8pg_4E3nrO1DqokH6_bRt8BmpNvuZIKUjtKT&slice_id=8")
+            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=Uas5lOUakFgpSPQEnANmMbQgzvVD8pg_4E3nrO1DqokH6_bRt8BmpNvuZIKUjtKT&slice_id=8`)
         }
         else {
 
@@ -45,8 +46,8 @@ class SupersetData {
         })
 
         //No longer need to keep the Puppeteer browser session open
-        if (SupersetDataHelper.TERMINATE_PUPPETEER_BROWSER_SESSION) {
-            await SupersetDataHelper.PUPPETEER_BROWSER_OBJECT.close();
+        if (SupersetHelper.TERMINATE_PUPPETEER_BROWSER_SESSION) {
+            await SupersetHelper.Data.Puppeteer.BROWSER_OBJECT.close();
         }
 
         return data;
@@ -61,30 +62,30 @@ class SupersetData {
                 };
 
                 (async () => {
-                    if (!SupersetDataHelper.DASHBOARD_IS_FILTERED) {
-                        SupersetDataHelper.DASHBOARD_IS_FILTERED = true;
+                    if (!SupersetHelper.Data.Dashboard.IS_FILTERED) {
+                        SupersetHelper.Data.Dashboard.IS_FILTERED = true;
 
-                        SupersetDataHelper.PUPPETEER_BROWSER_OBJECT = await puppeteer.launch({
+                        SupersetHelper.Data.Puppeteer.BROWSER_OBJECT = await puppeteer.launch({
                             args: [
                                 '--disable-web-security',
                             ],
                             headless: true
                         });
 
-                        SupersetDataHelper.PUPPETEER_PAGE_OBJECT = await SupersetDataHelper.PUPPETEER_BROWSER_OBJECT.newPage();
+                        SupersetHelper.Data.Puppeteer.PAGE_OBJECT = await SupersetHelper.Data.Puppeteer.BROWSER_OBJECT.newPage();
 
-                        await SupersetDataHelper.PUPPETEER_PAGE_OBJECT.goto(`https://superset.qa.cares-disi.gicsandbox.org/superset/dashboard/${this.visualisationParams.DashboardID}/?native_filters=(NATIVE_FILTER-vQUYoGoee:(__cache:(label:'20 Dec 2020',validateStatus:!f,value:!('20 Dec 2020')),extraFormData:(filters:!((col:pepfar_quarter,op:IN,val:!('20 Dec 2020')))),filterState:(label:'20 Dec 2020',validateStatus:!f,value:!('20 Dec 2020')),id:NATIVE_FILTER-vQUYoGoee,ownState:()))`);
+                        await SupersetHelper.Data.Puppeteer.PAGE_OBJECT.goto(`${this.supersetServerURL}/superset/dashboard/${this.visualisationParams.DashboardID}/?native_filters=(NATIVE_FILTER-vQUYoGoee:(__cache:(label:'${SupersetHelper.Data.Dashboard.FILTER_VALUES[0]}',validateStatus:!f,value:!('${SupersetHelper.Data.Dashboard.FILTER_VALUES[0]}')),extraFormData:(filters:!((col:${SupersetHelper.Data.Dashboard.FILTER_COUMNS[0]},op:IN,val:!('${SupersetHelper.Data.Dashboard.FILTER_VALUES[0]}')))),filterState:(label:'${SupersetHelper.Data.Dashboard.FILTER_VALUES[0]}',validateStatus:!f,value:!('${SupersetHelper.Data.Dashboard.FILTER_VALUES[0]}')),id:NATIVE_FILTER-vQUYoGoee,ownState:()))`);
 
-                        await SupersetDataHelper.PUPPETEER_PAGE_OBJECT.type('input[name=username]', creds.username);
-                        await SupersetDataHelper.PUPPETEER_PAGE_OBJECT.type('input[name=password]', creds.password)
+                        await SupersetHelper.Data.Puppeteer.PAGE_OBJECT.type('input[name=username]', creds.username);
+                        await SupersetHelper.Data.Puppeteer.PAGE_OBJECT.type('input[name=password]', creds.password)
 
                         await Promise.all([
-                            SupersetDataHelper.PUPPETEER_PAGE_OBJECT.click('input[type=submit]'),
-                            SupersetDataHelper.PUPPETEER_PAGE_OBJECT.waitForNavigation({ waitUntil: 'networkidle0' }),
+                            SupersetHelper.Data.Puppeteer.PAGE_OBJECT.click('input[type=submit]'),
+                            SupersetHelper.Data.Puppeteer.PAGE_OBJECT.waitForNavigation({ waitUntil: 'networkidle0' }),
                         ]);
                     }
 
-                    return resolve(await this.#getFilteredChartData(SupersetDataHelper.PUPPETEER_PAGE_OBJECT));
+                    return resolve(await this.#getFilteredChartData(SupersetHelper.Data.Puppeteer.PAGE_OBJECT));
                 })();
             } catch (e) {
                 return reject(e);

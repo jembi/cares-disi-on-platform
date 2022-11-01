@@ -1,12 +1,16 @@
 Feature: CHART TEST
     Scenario: TEST
 
+        And I set the following Superset dashboard column filters
+            | field          | value       |
+            | pepfar_quarter | 20 Dec 2020 |
+
         And I check Superset for chart data using the following
             | field       | value |
             | DashboardID | 1     |
             | ChartID     | 1     |
 
-        Then there should be a superset count of "123"
+        Then there should be a superset count of "124"
 
         And I check Superset for chart data using the following
             | field       | value |

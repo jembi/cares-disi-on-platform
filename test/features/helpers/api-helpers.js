@@ -91,10 +91,11 @@ const queryES = async (config) => {
 
 var filteredDashboardData = null;
 
-var getFilteredSupersetDashboardData = async function (ssUsername, ssPassword, testParams, callback) {
+var getFilteredSupersetDashboardData = async function (ssURL, ssUsername, ssPassword, testParams, callback) {
   let supersetData = new SupersetData(
     this.visualisationParams = testParams,
-    this.supersetCredentials = new Array(ssUsername, ssPassword)
+    this.supersetCredentials = new Array(ssUsername, ssPassword),
+    this.supersetServerURL = ssURL
   );
 
   supersetData.getFilteredData(function (filteredDataCallback) {
@@ -110,9 +111,9 @@ var getFilteredSupersetDashboardData = async function (ssUsername, ssPassword, t
 }
 
 const getSupsersetChart = async (params, callback) => {
-  const { SUPERSET_USERNAME, SUPERSET_PASSWORD } = process.env
+  const { SUPERSET_SERVER, SUPERSET_USERNAME, SUPERSET_PASSWORD } = process.env
   const DATA_IS_FILTERED = await new Promise((resolve) => {
-    getFilteredSupersetDashboardData(SUPERSET_USERNAME, SUPERSET_PASSWORD, params, function (initialiseClientCallback) {
+    getFilteredSupersetDashboardData(SUPERSET_SERVER, SUPERSET_USERNAME, SUPERSET_PASSWORD, params, function (initialiseClientCallback) {
       if (initialiseClientCallback) {
         resolve(true);
       }
