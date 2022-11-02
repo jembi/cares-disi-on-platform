@@ -2,8 +2,7 @@ class SupersetHelper {
     static Data = {
         Dashboard: {
             IS_FILTERED: false,
-            FILTER_COUMNS: [],
-            FILTER_VALUES: []
+            FILTER_COUMNS: [[]]
         },
 
         Puppeteer: {

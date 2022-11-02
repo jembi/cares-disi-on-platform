@@ -79,7 +79,6 @@ Then('notify browser resources must be terminated after the following test', fun
 
 When('I set the following Superset dashboard column filters', async function (table) {
     table.hashes().forEach(hash => {
-        SupersetHelper.Data.Dashboard.FILTER_COUMNS.push(hash.field);
-        SupersetHelper.Data.Dashboard.FILTER_VALUES.push(hash.value);
+        SupersetHelper.Data.Dashboard.FILTER_COUMNS.push([hash.field, hash.value]);
     })
 })
