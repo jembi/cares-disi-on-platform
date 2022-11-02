@@ -1,6 +1,7 @@
 const axios = require('axios')
 const SupersetData = require("./SupersetData");
 const HtmlTableToJson = require('html-table-to-json');
+const SupersetHelper = require("../helpers/SupersetHelper");
 
 const getReport = async (params, isForKibanaDashboard, chartName = null) => {
   const { JSREPORT_SERVER, JS_USERNAME, JS_PASSWORD } = process.env
@@ -92,6 +93,9 @@ const queryES = async (config) => {
 var filteredDashboardData = null;
 
 var getFilteredSupersetDashboardData = async function (ssURL, ssUsername, ssPassword, testParams, callback) {
+  if (SupersetHelper.Data.Puppeteer.NAVIGATION_INACTIVITY_TIMER)
+    clearTimeout(SupersetHelper.Data.Puppeteer.NAVIGATION_INACTIVITY_TIMER); //Restart the inactivity timer for the Puppeteer Browser object
+
   let supersetData = new SupersetData(
     this.visualisationParams = testParams,
     this.supersetCredentials = new Array(ssUsername, ssPassword),
@@ -99,6 +103,17 @@ var getFilteredSupersetDashboardData = async function (ssURL, ssUsername, ssPass
   );
 
   supersetData.getFilteredData(function (filteredDataCallback) {
+    SupersetHelper.Data.Puppeteer.NAVIGATION_INACTIVITY_TIMER = setInterval(
+      async function () {
+        await SupersetHelper.Data.Puppeteer.BROWSER_OBJECT.close();
+
+        console.log("Browser navigation timed out due to inactivity!");
+
+        clearTimeout(SupersetHelper.Data.Puppeteer.NAVIGATION_INACTIVITY_TIMER);
+      },
+      15000
+    );
+
     if (filteredDataCallback) {
       filteredDashboardData = new HtmlTableToJson(filteredDataCallback, { values: true }).results[0];
 

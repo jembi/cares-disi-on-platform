@@ -46,8 +46,10 @@ class SupersetData {
         })
 
         //No longer need to keep the Puppeteer browser session open
-        if (SupersetHelper.TERMINATE_PUPPETEER_BROWSER_SESSION) {
+        if (SupersetHelper.Data.Puppeteer.TERMINATE_BROWSER_SESSION) {
             await SupersetHelper.Data.Puppeteer.BROWSER_OBJECT.close();
+
+            console.log("Notified browser to be terminated!");
         }
 
         return data;
@@ -73,7 +75,7 @@ class SupersetData {
                         });
 
                         SupersetHelper.Data.Puppeteer.PAGE_OBJECT = await SupersetHelper.Data.Puppeteer.BROWSER_OBJECT.newPage();
-                        //SupersetHelper.Data.Puppeteer.PAGE_OBJECT.setDefaultNavigationTimeout(30000); //30 sec timeout if no activity found
+
 
                         await SupersetHelper.Data.Puppeteer.PAGE_OBJECT.goto(`${this.supersetServerURL}/superset/dashboard/${this.visualisationParams.DashboardID}/?native_filters=(NATIVE_FILTER-vQUYoGoee:(__cache:(label:'${SupersetHelper.Data.Dashboard.FILTER_COUMNS[0][1]}',validateStatus:!f,value:!('${SupersetHelper.Data.Dashboard.FILTER_COUMNS[0][1]}')),extraFormData:(filters:!((col:${SupersetHelper.Data.Dashboard.FILTER_COUMNS[0][0]},op:IN,val:!('${SupersetHelper.Data.Dashboard.FILTER_COUMNS[0][1]}')))),filterState:(label:'${SupersetHelper.Data.Dashboard.FILTER_COUMNS[0][1]}',validateStatus:!f,value:!('${SupersetHelper.Data.Dashboard.FILTER_COUMNS[0][1]}')),id:NATIVE_FILTER-vQUYoGoee,ownState:()))`);
 

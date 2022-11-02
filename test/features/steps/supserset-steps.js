@@ -1,7 +1,6 @@
 const { Then, When } = require('@cucumber/cucumber')
 const { expect } = require('chai')
 const { getSupsersetChart } = require('../helpers/api-helpers')
-const SupersetData = require("../helpers/SupersetData");
 const SupersetHelper = require("../helpers/SupersetHelper");
 
 When('I check Superset for chart data using the following', { timeout: 60 * 1000 }, async function (table) {

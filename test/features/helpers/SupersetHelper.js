@@ -8,7 +8,8 @@ class SupersetHelper {
         Puppeteer: {
             TERMINATE_BROWSER_SESSION: false,
             PAGE_OBJECT: null,
-            BROWSER_OBJECT: null
+            BROWSER_OBJECT: null,
+            NAVIGATION_INACTIVITY_TIMER: null
         },
     };
 }
