@@ -2,8 +2,6 @@ const puppeteer = require('puppeteer');
 const SupersetHelper = require('../helpers/SupersetHelper');
 
 class SupersetData {
-    static DASHBOARD_NATIVE_FILTER_KEY = "";
-
     constructor(visualisationParams, supersetCredentials, supersetServerURL) {
         this.visualisationParams = visualisationParams;
         this.supersetCredentials = supersetCredentials;
