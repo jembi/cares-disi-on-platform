@@ -2,6 +2,8 @@ const puppeteer = require('puppeteer');
 const SupersetHelper = require('../helpers/SupersetHelper');
 
 class SupersetData {
+    static DASHBOARD_NATIVE_FILTER_KEY = "";
+
     constructor(visualisationParams, supersetCredentials, supersetServerURL) {
         this.visualisationParams = visualisationParams;
         this.supersetCredentials = supersetCredentials;
@@ -10,19 +12,19 @@ class SupersetData {
 
     async #getFilteredChartData(webPage) {
         if (this.visualisationParams.ChartID == 1) {
-            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=Px6o5Wvt8dH8hft2cSO0YltuhVUi4TpDZLMx-9PQfkVO7J804lj-QhbUX8ynMjNM&slice_id=1&native_filters_key=7nKyn4UrzAquJ8h_rEWjxXGsc48V2cmzmysr72lp9zR9TV4PYWfo_ofrcERBYIfB`);
+            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=I9Wa7X6p6Eg8D-vH0kX-tI3YNVbyrNZbGGg-BOg99IP-AYI-rUr65uoTJPxILyn_&slice_id=1&native_filters_key=5GTODVX6cd0wc3gZlnG2rmS35UDIrrWym38K8QIQEySdQ-0xSHL2pWmuNo1X3fGA`);
         }
         else if (this.visualisationParams.ChartID == 2) {
-            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=31ed5rVGLFPNRq7dTBTAA_jbw1Dy6NJ8GBQy3Euyx8XgJ_pFYj4C7XJhuv_dwgCd&slice_id=2`);
+            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=qg1iS2Hz6YEk6N7jH0WRbWpfZHepRDnON_qD_80w-GtkHc73O2tKXorX_B_Ubz-G&slice_id=2`);
         }
         else if (this.visualisationParams.ChartID == 6) {
-            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=5kaPoFQH1nxUgCcEYpC3Dq7ET5NUgFQwnXIeN9Fydo-gFJFD-uk6jGEjc4Rg3XCY&slice_id=6`);
+            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=m-BhlCtib5dpk2B3z2TOXKB5wFE6dPD9tVvdOoIVwqkg3R-plvaZAXk9SCn58dN0&slice_id=6`);
         }
         else if (this.visualisationParams.ChartID == 7) {
-            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=tN6pZaBv-RR28KVfBI3q0ImFlN75nTfG1vfxnPn9wvZi_34nm4sEpFm1sSzU21MA&slice_id=7`)
+            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=ioaMNXPsCEjX2LMbLHPhFNjlbiUt69cnPZrsyC4zfdBGA-EDuDeIPWpxcJCct1ei&slice_id=7`)
         }
         else if (this.visualisationParams.ChartID == 8) {
-            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=Uas5lOUakFgpSPQEnANmMbQgzvVD8pg_4E3nrO1DqokH6_bRt8BmpNvuZIKUjtKT&slice_id=8`)
+            await webPage.goto(`${this.supersetServerURL}/explore/?form_data_key=wWn4ctpT-7cTX62aeCb5leTZWEL9Bm64nMa1uoZgUFxxDJW8KeQxcLFM1xpjLYTw&slice_id=8`)
         }
         else {
 
