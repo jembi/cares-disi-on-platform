@@ -11,3 +11,23 @@ customPackages:
     path: git@github.com:jembi/cares-on-platform.git
   - id: disi-on-platform
     path: git@github.com:jembi/disi-on-platform.git
+
+profiles:
+  - name: local
+    packages:
+      - monitoring
+      - cares-on-platform
+      - disi-on-platform
+    envFiles:
+      - .env.local
+    dev: true
+    only: false
+  - name: qa
+    packages:
+      - monitoring
+      - cares-on-platform
+      - disi-on-platform
+    envFiles:
+      - .env.qa
+    dev: false
+    only: false
