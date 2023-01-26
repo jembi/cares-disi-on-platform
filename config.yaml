@@ -1,0 +1,13 @@
+---
+projectName: cares-disi-on-platform
+image: jembi/platform
+logPath: /tmp/logs
+
+packages:
+  - monitoring
+
+customPackages:
+  - id: cares-on-platform
+    path: git@github.com:jembi/cares-on-platform.git
+  - id: disi-on-platform
+    path: git@github.com:jembi/disi-on-platform.git
