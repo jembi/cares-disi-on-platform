@@ -5,6 +5,7 @@ logPath: /tmp/logs
 
 packages:
   - monitoring
+  - reverse-proxy-nginx
 
 customPackages:
   - id: cares-on-platform
