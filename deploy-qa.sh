@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./instant-linux package "$1" --profile=openhim
+./instant-linux package "$1" --profile=qa
