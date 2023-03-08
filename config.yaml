@@ -1,6 +1,6 @@
 ---
 projectName: cares-disi-on-platform
-image: jembi/platform
+image: jembi/platform:1.6.0
 logPath: /tmp/logs
 
 packages:
